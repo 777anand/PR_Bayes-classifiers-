@@ -52,7 +52,7 @@ if sys.argv[2]=='1':
 elif sys.argv[2]=='2':
 	covariance_mat1=(np.cov(xs1,ys1)+np.cov(xs2,ys2)+np.cov(xs3,ys3))/3
 	covariance_mat2=covariance_mat1
-	covariance_mat3=covariance_mat1s
+	covariance_mat3=covariance_mat1
 elif sys.argv[2]=='3':
 	covariance_mat1=np.cov(xs1,ys1)
 	covariance_mat2=np.cov(xs2,ys2)
@@ -79,8 +79,8 @@ min_y=np.amin(np.concatenate((ys1,ys2,ys3),axis=0))
 min_x=np.amin(np.concatenate((xs1,xs2,xs3),axis=0))
 max_y=np.amax(np.concatenate((ys1,ys2,ys3),axis=0))
 max_x=np.amax(np.concatenate((xs1,xs2,xs3),axis=0))
-pointsx=np.arange(min_x,max_x,.03)
-pointsy=np.arange(min_y,max_y,.03)
+pointsx=np.arange(min_x,max_x,.1)
+pointsy=np.arange(min_y,max_y,.1)
 xx,yy=np.meshgrid(pointsx,pointsy)
 # points=np.concatenate((pointsx,pointsy),axis=1)
 
@@ -285,12 +285,13 @@ accuracy = (confusion_matrix[0][0]+confusion_matrix[1][1]+confusion_matrix[2][2]
 print("The accuracy is -",accuracy*100,"%")
 print(" ")
 
-precison_c1 = (confusion_matrix[0][0]/len(test1))
-precison_c2 = (confusion_matrix[1][1]/len(test2))
-precison_c3 = (confusion_matrix[2][2]/len(test3))
-print("Precison of class 1-",precison_c1)
-print("Precison of class 2-",precison_c2)
-print("Precison of class 3-",precison_c3)
+precision_c1 = (confusion_matrix[0][0]/len(test1))
+precision_c2 = (confusion_matrix[1][1]/len(test2))
+precision_c3 = (confusion_matrix[2][2]/len(test3))
+print("Precision of class 1-",precision_c1)
+print("Precision of class 2-",precision_c2)
+print("Precision of class 3-",precision_c3)
+print("Mean Precision - ", (precision_c1+precision_c2+precision_c3)/3)
 print(" ")
 
 recall_c1 = (confusion_matrix[0][0]/(confusion_matrix[0][0]+confusion_matrix[1][0]+confusion_matrix[2][0]))
@@ -299,14 +300,18 @@ recall_c3 = (confusion_matrix[2][2]/(confusion_matrix[0][2]+confusion_matrix[1][
 print("Recall of class 1-",recall_c1)
 print("Recall of class 2-",recall_c2)
 print("Recall of class 3-",recall_c3)
+print("Mean Recall-",(recall_c1+recall_c2+recall_c3)/3)
 print(" ")
 
-f_measure1 = 2*(precison_c1*recall_c1)/(precison_c1+recall_c1)
-f_measure2 = 2*(precison_c2*recall_c2)/(precison_c2+recall_c2)
-f_measure3 = 2*(precison_c3*recall_c3)/(precison_c3+recall_c3)
+f_measure1 = 2*(precision_c1*recall_c1)/(precision_c1+recall_c1)
+f_measure2 = 2*(precision_c2*recall_c2)/(precision_c2+recall_c2)
+f_measure3 = 2*(precision_c3*recall_c3)/(precision_c3+recall_c3)
 print("F measure of class 1-",f_measure1)
 print("F measure of class 2-",f_measure2)
 print("F measure of class 3-",f_measure3)
+print("Mean F Measure - ",(f_measure1+f_measure2+f_measure3)/3)
+
+
 # ----------------------------Contour plot---------------------------------------------------------------------
 
 def density(x,mean_i,covariance_mat):
