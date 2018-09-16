@@ -79,8 +79,9 @@ min_y=np.amin(np.concatenate((ys1,ys2,ys3),axis=0))
 min_x=np.amin(np.concatenate((xs1,xs2,xs3),axis=0))
 max_y=np.amax(np.concatenate((ys1,ys2,ys3),axis=0))
 max_x=np.amax(np.concatenate((xs1,xs2,xs3),axis=0))
-pointsx=np.arange(min_x,max_x,.1)
-pointsy=np.arange(min_y,max_y,.1)
+
+pointsx=np.arange(min_x,max_x,.03)
+pointsy=np.arange(min_y,max_y,.03)
 xx,yy=np.meshgrid(pointsx,pointsy)
 # points=np.concatenate((pointsx,pointsy),axis=1)
 
@@ -109,10 +110,12 @@ xc2 = [x[0] for x in b_class2]
 yc2 = [x[1] for x in b_class2]
 
 
-plt.scatter(xc1,yc1)
-plt.scatter(xc2,yc2)
-plt.scatter(xs1,ys1)
-plt.scatter(xs2,ys2)
+plt.scatter(xc1,yc1,label='Class 1- decision surface')
+plt.scatter(xc2,yc2,label='Class 2- decision surface')
+plt.scatter(xs1,ys1,label='Class 1')
+plt.scatter(xs2,ys2,label='Class 2')
+plt.axis('equal')
+plt.legend()
 plt.show()
 
 
@@ -140,10 +143,13 @@ yc1 = [x[1] for x in b_class1]
 xc2 = [x[0] for x in b_class2]
 yc2 = [x[1] for x in b_class2]
 
-plt.scatter(xc1,yc1)
-plt.scatter(xc2,yc2)
-plt.scatter(xs1,ys1)
-plt.scatter(xs3,ys3)
+plt.scatter(xc1,yc1,label='Class 1- decision surface')
+plt.scatter(xc2,yc2,label='Class 3- decision surface')
+plt.scatter(xs1,ys1,label='Class 1')
+plt.scatter(xs3,ys3,label='Class 3')
+plt.axis('equal')
+
+plt.legend()
 plt.show()
 
 
@@ -171,10 +177,14 @@ yc1 = [x[1] for x in b_class1]
 xc2 = [x[0] for x in b_class2]
 yc2 = [x[1] for x in b_class2]
 
-plt.scatter(xc1,yc1)
-plt.scatter(xc2,yc2)
-plt.scatter(xs3,ys3)
-plt.scatter(xs2,ys2)
+
+plt.scatter(xc2,yc2,label='Class 3- decision surface')
+plt.scatter(xc1,yc1,label='Class 2- decision surface')
+plt.scatter(xs3,ys3,label='Class 3')
+plt.scatter(xs2,ys2,label='Class 2')
+plt.axis('equal')
+
+plt.legend()
 plt.show()
 
 
@@ -210,12 +220,15 @@ yc3 = [x[1] for x in b_class3]
 
 		
 # plt.scatter(xx,yy)
-plt.scatter(xc1,yc1)
-plt.scatter(xc2,yc2)
-plt.scatter(xc3,yc3)
-plt.scatter(xs1, ys1)
-plt.scatter(xs2, ys2)
-plt.scatter(xs3, ys3)
+plt.scatter(xc1,yc1,label='Class 1- decision surface')
+plt.scatter(xc2,yc2,label='Class 2- decision surface')
+plt.scatter(xc3,yc3,label='Class 3- decision surface')
+plt.scatter(xs1, ys1,label='Class 1')
+plt.scatter(xs2, ys2,label='Class 2')
+plt.scatter(xs3, ys3,label='Class 3')
+plt.axis('equal')
+plt.legend()
+plt.show()
 
 
 #--------------------Confusion matrix------------------------------------
@@ -300,7 +313,7 @@ recall_c3 = (confusion_matrix[2][2]/(confusion_matrix[0][2]+confusion_matrix[1][
 print("Recall of class 1-",recall_c1)
 print("Recall of class 2-",recall_c2)
 print("Recall of class 3-",recall_c3)
-print("Mean Recall-",(recall_c1+recall_c2+recall_c3)/3)
+print("Mean Recall -",(recall_c1+recall_c2+recall_c3)/3)
 print(" ")
 
 f_measure1 = 2*(precision_c1*recall_c1)/(precision_c1+recall_c1)
@@ -348,6 +361,36 @@ z3 =np.transpose(np.reshape(z3,(len(pointsx), len(pointsy))))
 # zz=density(z,mean_c1,covariance_mat1)
 plt.contour(xx,yy,z1)
 plt.contour(xx,yy,z2)
+plt.scatter(xs1,ys1,label='Class 1')
+plt.scatter(xs2,ys2,label='Class 2')
+plt.axis('equal')
+plt.legend()
+plt.show()
+
+plt.contour(xx,yy,z1)
 plt.contour(xx,yy,z3)
+plt.scatter(xs3,ys3,label='Class 3')
+plt.scatter(xs1,ys1,label='Class 1')
+plt.axis('equal')
+plt.legend()
+plt.show()
+
+plt.contour(xx,yy,z2)
+plt.contour(xx,yy,z3)
+plt.scatter(xs3,ys3,label='Class 3')
+plt.scatter(xs2,ys2,label='Class 2')
+plt.axis('equal')
+plt.legend()
+plt.show()
+
+plt.contour(xx,yy,z1)
+plt.contour(xx,yy,z2)
+plt.contour(xx,yy,z3)
+plt.scatter(xs1,ys1,label='Class 1')
+plt.scatter(xs2,ys2,label='Class 2')
+plt.scatter(xs3,ys3,label='Class 3')
+plt.legend()
+plt.axis('equal')
+
 
 plt.show()
